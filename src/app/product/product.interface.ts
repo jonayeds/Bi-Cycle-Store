@@ -1,13 +1,18 @@
-// import { Model } from "mongoose";
+/* eslint-disable no-unused-vars */
 
-export interface IProduct{
-    name:string;
-    brand:string;
-    price:number;
-    type: "Mountain" | "Road" | "Hybrid" | "BMX" | "Electric";
-    description:string;
-    quantity:number;
-    inStock:boolean
+import { Model, ObjectId } from 'mongoose';
+
+export interface IProduct {
+  name: string;
+  brand: string;
+  price: number;
+  type: 'Mountain' | 'Road' | 'Hybrid' | 'BMX' | 'Electric';
+  description: string;
+  quantity: number;
+  inStock: boolean;
 }
 
-// export type ProductModel = Model<IProduct>
+// statics
+export interface ProductModel extends Model<IProduct> {
+  isInStock(id:ObjectId): boolean;
+}

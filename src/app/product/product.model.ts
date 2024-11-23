@@ -1,7 +1,7 @@
-import { model, Schema } from "mongoose";
-import { IProduct } from "./product.interface";
+import { model, ObjectId, Schema } from "mongoose";
+import { IProduct, ProductModel } from "./product.interface";
 
-const productSchema = new Schema<IProduct>({
+const productSchema = new Schema<IProduct, ProductModel>({
     name:{
         type:String,
         required:true
@@ -31,4 +31,9 @@ const productSchema = new Schema<IProduct>({
 
 },{timestamps:true})
 
-export const Product = model<IProduct>("Product", productSchema)
+productSchema.statics.isInStock = async function(id:ObjectId){
+    const existingProduct = await Product.findById(id)
+    return existingProduct?.inStock
+}
+
+export const Product = model<IProduct, ProductModel>("Product", productSchema)
