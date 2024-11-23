@@ -2,6 +2,7 @@ import { Product } from '../product/product.model';
 import { IOrder } from './order.interface';
 import { Order } from './order.model';
 
+// order a Bi-Cycle
 const orderABiCycle = async (order: IOrder) => {
   const product = await Product.findOne({ _id: order.product });
   if (!product?.inStock || product?.quantity - order.quantity < 0) {
@@ -21,25 +22,26 @@ const orderABiCycle = async (order: IOrder) => {
   return result;
 };
 
-const calculateRevenue = async()=>{
-    const revenue = await Order.aggregate([
-        {
-            $group:{
-                _id:null,
-                totalRevenue : {$sum: "$totalPrice"}
-            },
-        },
-        {
-            $project:{
-                totalRevenue:1,
-                _id:0
-            }
-        }
-    ])
-    return revenue[0]
-}
+// Calculate Revenue
+const calculateRevenue = async () => {
+  const revenue = await Order.aggregate([
+    {
+      $group: {
+        _id: null,
+        totalRevenue: { $sum: '$totalPrice' },
+      },
+    },
+    {
+      $project: {
+        totalRevenue: 1,
+        _id: 0,
+      },
+    },
+  ]);
+  return revenue[0];
+};
 
 export const orderServices = {
   orderABiCycle,
-  calculateRevenue
+  calculateRevenue,
 };

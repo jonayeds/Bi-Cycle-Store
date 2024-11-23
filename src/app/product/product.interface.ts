@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
 
-import { Model, ObjectId } from 'mongoose';
 
 export interface IProduct {
   name: string;
@@ -12,7 +10,3 @@ export interface IProduct {
   inStock: boolean;
 }
 
-// statics
-export interface ProductModel extends Model<IProduct> {
-  isInStock(id:ObjectId): boolean;
-}
