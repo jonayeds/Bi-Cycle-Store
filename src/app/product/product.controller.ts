@@ -1,11 +1,14 @@
 import { Request, Response } from 'express';
 import { productServices } from './product.service';
+import { productValidationSchema } from './product.validation';
+import { IProduct } from './product.interface';
 
 // create Bi Cycle
 const createABiCycle = async (req: Request, res: Response) => {
   try {
     const biCycle = req.body;
-    const result = await productServices.createABiCycle(biCycle);
+    const zodParsedData = productValidationSchema.parse(biCycle)
+    const result = await productServices.createABiCycle(zodParsedData as IProduct);
     res.status(200).json({
       success: true,
       message: 'Bicycle created successfully',
