@@ -6,7 +6,12 @@ const createABiCycle = async(biCycle:IProduct)=>{
     return result
 }
 
+const getAllBiCycle = async ()=>{
+    const result  = await Product.find()
+    return result
+}
+
 export const  productServices = {
     createABiCycle,
-
+    getAllBiCycle,
 }

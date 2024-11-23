@@ -22,12 +22,31 @@ const createABiCycle =async (req:Request, res:Response)=>{
             error
         })
     }
-   
+}
 
-
+const  getAllByiCycle = async(req:Request,res:Response)=>{
+    try {
+        const result = await productServices.getAllBiCycle()
+    res
+    .status(200)
+    .json({
+        success:true,
+        message:"Bicycles retrieved successfully",
+        data:result
+    })    
+    } catch (error) {
+      res
+      .status(200)
+      .json({
+        success:false,
+        message:"Something went wrong while retrieving BiCycle",
+        error
+      })  
+    }
+    
 }
 
 export const productControllers = {
     createABiCycle,
-
+    getAllByiCycle,
 }
