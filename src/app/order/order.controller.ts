@@ -30,6 +30,29 @@ const orderBiCycle = async (req: Request, res: Response) => {
   }
 };
 
+const calculateRevenue = async(req:Request, res:Response)=>{
+    try{
+        const revenue = await orderServices.calculateRevenue()
+        res
+        .status(200)
+        .json({
+            success:true,
+            message:"Revenue calculated successfully",
+            data:revenue
+        })
+    }catch(error){
+        res
+        .status(400)
+        .json({
+            success:false,
+            message:"Something went wrong while calculating Revenues",
+            error
+        })
+    }
+
+}
+
 export const orderControllers= {
-    orderBiCycle
+    orderBiCycle,
+    calculateRevenue
 }

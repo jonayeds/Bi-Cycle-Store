@@ -5,3 +5,4 @@ export const orderRouter = express.Router()
 
 // order routes
 orderRouter.post("/", orderControllers.orderBiCycle)
+orderRouter.get("/revenue", orderControllers.calculateRevenue)

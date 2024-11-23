@@ -15,12 +15,31 @@ const orderABiCycle = async (order: IOrder) => {
     },
     { new: true },
   );
-  if ((product.quantity - order.quantity) === 0) {
+  if (product.quantity - order.quantity === 0) {
     await Product.findByIdAndUpdate(order.product, { inStock: false });
   }
   return result;
 };
 
+const calculateRevenue = async()=>{
+    const revenue = await Order.aggregate([
+        {
+            $group:{
+                _id:null,
+                totalRevenue : {$sum: "$totalPrice"}
+            },
+        },
+        {
+            $project:{
+                totalRevenue:1,
+                _id:0
+            }
+        }
+    ])
+    return revenue[0]
+}
+
 export const orderServices = {
   orderABiCycle,
+  calculateRevenue
 };
