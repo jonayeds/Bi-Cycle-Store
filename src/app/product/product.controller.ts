@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { productServices } from './product.service';
-import { productValidationSchema } from './product.validation';
+import { productValidationSchema, updateBiCycleValidationSchema } from './product.validation';
 import { IProduct } from './product.interface';
 
 // create Bi Cycle
@@ -65,7 +65,8 @@ const updateABiCycle = async (req: Request, res: Response) => {
   try {
     const productId = req.params.productId;
     const updateData = req.body;
-    const result = await productServices.updateABiCycle(productId, updateData);
+    const zodParsedData = updateBiCycleValidationSchema.parse(updateData)
+    const result = await productServices.updateABiCycle(productId, zodParsedData);
     if (result) {
       res.status(200).json({
         success: true,
