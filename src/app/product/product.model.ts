@@ -16,7 +16,8 @@ const productSchema = new Schema<IProduct>({
     },
     type:{
         type:String,
-        required:true
+        enum:[ "Mountain" , "Road" , "Hybrid" , "BMX" , "Electric"],
+        required:true,
     },
     description:String,
     quantity:{
