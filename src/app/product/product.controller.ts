@@ -46,15 +46,24 @@ const getABiCycle = async (req: Request, res: Response) => {
   try {
     const productId = req.params.productId;
     const result = await productServices.getABiCycle(productId);
-    res.status(200).json({
-      success: true,
-      message: 'BiCycle retrieved successfully',
-      data: result,
-    });
+    if(result === null){
+      res.status(404).json({
+        success: false,
+        message: 'Bi-Cycle not found',
+        data:{}
+      });
+    }else{
+      res.status(200).json({
+        success: true,
+        message: 'BiCycle retrieved successfully',
+        data: result,
+      });  
+    }
+    
   } catch (error) {
     res.status(400).json({
       success: false,
-      message: 'BiCycle not found',
+      message: 'Something went wrong finding bi-cycle',
       error,
     });
   }
