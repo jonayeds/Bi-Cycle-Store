@@ -13,7 +13,7 @@ app.use('/api/products', productRouter);
 app.use('/api/orders', orderRouter);
 
 app.get('/', (req, res) => {
-  res.send('Bi-Cycle is Running 🏃‍➡️');
+  res.send('Bi-Cycle is Running 🏃‍➡️ away');
 });
 
 export default app;
