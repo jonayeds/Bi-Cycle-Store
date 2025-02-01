@@ -15,4 +15,4 @@ router.post("/refresh-token",
             AuthControllers.refreshToken
 )
 
-export const UserRoutes = router
+export const AuthRoutes = router

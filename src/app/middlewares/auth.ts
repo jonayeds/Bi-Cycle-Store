@@ -6,9 +6,10 @@ import { catchAsync } from "../utils/catchAsync";
 import { AppError } from "../errors/appError";
 import jwt, { JwtPayload } from 'jsonwebtoken'
 import config from "../config";
+import { User } from "../modules/user/user.model";
 
 export const auth = (...requiredRoles:TUserRoles[])=>{
-    return catchAsync((req:Request,res:Response,next:NextFunction)=>{
+    return catchAsync(async(req:Request,res:Response,next:NextFunction)=>{
         const accessToken = req.headers.authorization;
         if (!accessToken) {
             throw new AppError(403, 'Unauthorized request');
@@ -18,6 +19,15 @@ export const auth = (...requiredRoles:TUserRoles[])=>{
             const {role, email} = decoded
             if (requiredRoles && !requiredRoles.includes(role)) {
                 throw new AppError(403, 'You are not authorized');
+              }
+
+              const user = await User.isUserExistsByEmail(email);
+              if (requiredRoles && !requiredRoles.includes(role)) {
+                throw new AppError(403, 'You are not authorized');
+              }
+              req.user = decoded as JwtPayload;
+              if (!user) {
+                throw new AppError(404, 'User not found');
               }
         } catch (error) {
             throw new AppError(403, 'Unauthorized request');
