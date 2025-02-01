@@ -1,11 +1,13 @@
 import express from 'express';
 import { productControllers } from './product.controller';
 
-export const productRouter = express.Router();
+ const productRoutes = express.Router();
 
 // Product Routes
-productRouter.post('/', productControllers.createABiCycle);
-productRouter.get('/', productControllers.getAllByiCycle);
-productRouter.get('/:productId', productControllers.getABiCycle);
-productRouter.put('/:productId', productControllers.updateABiCycle);
-productRouter.delete('/:productId', productControllers.deleteBiCycle);
+productRoutes.post('/', productControllers.createABiCycle);
+productRoutes.get('/', productControllers.getAllByiCycle);
+productRoutes.get('/:productId', productControllers.getABiCycle);
+productRoutes.put('/:productId', productControllers.updateABiCycle);
+productRoutes.delete('/:productId', productControllers.deleteBiCycle);
+
+export const ProductRoutes = productRoutes
