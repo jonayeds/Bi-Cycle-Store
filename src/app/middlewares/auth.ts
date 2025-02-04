@@ -23,9 +23,10 @@ export const auth = (...requiredRoles: TUserRoles[]) => {
         accessToken,
         config.jwt_access_secret as string,
       ) as JwtPayload;
-      const { role, id, iat } = decoded;
+      const { role, email, iat } = decoded;
+      
+      const user = await User.isUserExistsByEmail(email);
 
-      const user = await User.isUserExistsByEmail(id);
 
       if (requiredRoles && !requiredRoles.includes(role)) {
         throw new AppError(403, 'You are not authorized');
