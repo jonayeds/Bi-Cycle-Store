@@ -6,6 +6,6 @@ import { UserValidations } from './user.validation'
 
 const router = express.Router()
 
-router.post("/create-user",requestValidator(UserValidations.createUserValidationSchema), UserControllers.createUser)
+router.post("/register-user",requestValidator(UserValidations.createUserValidationSchema), UserControllers.registerUser)
 
 export const UserRoutes = router

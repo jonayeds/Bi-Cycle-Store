@@ -10,7 +10,7 @@ const createUserValidationSchema = z.object({
         }),
         email:z.string({required_error:"email is required"}).email(),
         password:z.string().min(6),
-        role:z.enum(roles as [string, ...string[]])
+        role:z.enum(roles as [string, ...string[]]).optional()
     })
 })
 
