@@ -1,10 +1,13 @@
 import { Request, Response } from 'express';
 import { orderServices } from './order.service';
+import { ICustomRequest } from '../../interfaces';
+import { JwtPayload } from 'jsonwebtoken';
 
-const orderBiCycle = async (req: Request, res: Response) => {
+const orderBiCycle = async (req: ICustomRequest, res: Response) => {
   try {
       const order = req.body;
-    const result = await orderServices.orderABiCycle(order);
+
+    const result = await orderServices.orderABiCycle(order, req.user as JwtPayload);
     if(result === "outOfStock"){
         res
         .status(400)
@@ -16,7 +19,7 @@ const orderBiCycle = async (req: Request, res: Response) => {
     }else{
         res.status(200).json({
             success: true,
-            message: 'Order created successfully',
+            message: 'Order placed successfully',
             data: result,
           });
     }

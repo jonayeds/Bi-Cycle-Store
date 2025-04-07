@@ -1,4 +1,4 @@
-export const user_role = {
+export const user_role : {admin:"admin", customer:"customer"} = {
     admin:"admin",
     customer:"customer"
 }

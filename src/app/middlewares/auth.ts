@@ -8,9 +8,10 @@ import config from '../config';
 
 import { User } from '../modules/user/user.model';
 import { TUserRoles } from '../modules/user/user.interface';
+import { ICustomRequest } from '../interfaces';
 
 export const auth = (...requiredRoles: TUserRoles[]) => {
-  return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  return catchAsync(async (req: ICustomRequest, res: Response, next: NextFunction) => {
     const accessToken = req.headers.authorization;
     // checking is the token exist
     if (!accessToken) {
@@ -31,10 +32,10 @@ export const auth = (...requiredRoles: TUserRoles[]) => {
       if (requiredRoles && !requiredRoles.includes(role)) {
         throw new AppError(403, 'You are not authorized');
       }
-      req.query.user = decoded as JwtPayload;
       if (!user) {
         throw new AppError(404, 'User not found');
       }
+      req.user = decoded as JwtPayload;
 
     } catch (err) {
       throw new AppError(403, 'Unauthorized request');

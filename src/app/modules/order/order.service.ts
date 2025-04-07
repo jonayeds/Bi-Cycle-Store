@@ -1,13 +1,16 @@
+import { JwtPayload } from 'jsonwebtoken';
 import { Product } from '../product/product.model';
 import { IOrder } from './order.interface';
 import { Order } from './order.model';
 
 // order a Bi-Cycle
-const orderABiCycle = async (order: IOrder) => {
+const orderABiCycle = async (order: IOrder, user:JwtPayload) => {
   const product = await Product.findOne({ _id: order.product });
   if (!product?.inStock || product?.quantity - order.quantity < 0) {
     return 'outOfStock';
   }
+  order.totalPrice = product.price * order.quantity
+  order.customer = user._id
   const result = await Order.create(order);
   await Product.findByIdAndUpdate(
     order.product,
@@ -17,7 +20,7 @@ const orderABiCycle = async (order: IOrder) => {
     { new: true },
   );
   if (product.quantity - order.quantity === 0) {
-    await Product.findByIdAndUpdate(order.product, { inStock: false });
+    await Product.findByIdAndUpdate(order.product, { inStock: false }, {new:true});
   }
   return result;
 };

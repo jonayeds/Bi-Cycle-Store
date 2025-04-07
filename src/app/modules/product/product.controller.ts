@@ -26,7 +26,9 @@ const createABiCycle = async (req: Request, res: Response) => {
 // Get all Bi Cycle
 const getAllByiCycle = async (req: Request, res: Response) => {
   try {
-    const result = await productServices.getAllBiCycle();
+    const query = req.query
+    const result = await productServices.getAllBiCycle(query);
+    
     res.status(200).json({
       success: true,
       message: 'Bicycles retrieved successfully',
