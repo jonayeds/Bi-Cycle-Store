@@ -30,6 +30,10 @@ const orderSchema = new Schema<IOrder>({
             },
             message:"Price cannot be Negative number"
         }
+    },
+    paymentSession:{
+        type:String,
+        required:true
     }
 
 },{timestamps:true})

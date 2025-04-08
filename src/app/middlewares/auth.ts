@@ -35,7 +35,7 @@ export const auth = (...requiredRoles: TUserRoles[]) => {
       if (!user) {
         throw new AppError(404, 'User not found');
       }
-      req.user = decoded as JwtPayload;
+      req.user = user;
 
     } catch (err) {
       throw new AppError(403, 'Unauthorized request');

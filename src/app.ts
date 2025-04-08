@@ -7,7 +7,7 @@ const app = express();
 // parsers
 app.use(express.json());
 app.use(cors({
-  origin:["http://localhost:5173"],
+  origin:["http://localhost:5173", "https://bi-cycle-store-shad-cn.vercel.app"],
   credentials:true
 }));
 

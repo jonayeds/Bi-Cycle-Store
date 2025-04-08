@@ -5,5 +5,6 @@ export interface IOrder{
     customer:Types.ObjectId
     product:Types.ObjectId,
     quantity:number,
-    totalPrice:number
+    totalPrice:number,
+    paymentSession:string,
 }

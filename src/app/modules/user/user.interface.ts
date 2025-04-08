@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Model } from "mongoose";
+import { Model, Schema } from "mongoose";
 import { user_role } from "./user.constant";
 
 export type TName = {
@@ -13,6 +13,10 @@ export interface IUser {
     email:string;
     password:string;
     role:"customer" | 'admin'
+}
+
+export interface IFetchedUser extends IUser {
+    _id:Schema.Types.ObjectId
 }
 
 export type TUserRoles = keyof typeof user_role
