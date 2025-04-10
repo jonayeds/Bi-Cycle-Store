@@ -45,6 +45,9 @@ const refreshToken = async (token: string) => {
     if (!user) {
       throw new AppError(404, 'User not found');
     }
+    if(user?.isBlocked){
+      throw new AppError(404, 'You are currently blocked');
+    }
     const jwtPayload = {
       email: user.email,
       role: user.role,

@@ -1,3 +1,4 @@
+import { AppError } from "../../errors/appError"
 import { IUser } from "./user.interface"
 import { User } from "./user.model"
 
@@ -15,8 +16,18 @@ const getAllusers = async()=>{
     return result 
 }
 
+const togleBlockUser = async(userId:string)=>{
+    const isUserExists = await User.isUserExists(userId)
+    if(!isUserExists){
+        throw new AppError(404,"User not found")
+    }
+    const result = await User.findByIdAndUpdate(userId, {isBlocked:!isUserExists.isBlocked})
+    return result
+}
+
 
 export const UserServices = {
     registerUser,
-    getAllusers
+    getAllusers,
+    togleBlockUser
 }

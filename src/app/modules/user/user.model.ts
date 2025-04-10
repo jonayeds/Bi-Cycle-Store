@@ -37,6 +37,10 @@ const userSchema = new Schema<IUser, IUserModel>({
         type:String,
         enum:["admin", "customer"],
         default:"customer"
+    },
+    isBlocked:{
+      type:Boolean,
+      default:false
     }
 
 },{
@@ -61,6 +65,9 @@ userSchema.post('save', function (doc, next) {
 //   static methods
   userSchema.statics.isUserExistsByEmail = async function (email: string) {
     return await User.findOne({ email }).select('+password');
+  };
+  userSchema.statics.isUserExists = async function (id: string) {
+    return await User.findById(id).select('+password');
   };
   
   userSchema.statics.isPasswordMatched = async function (

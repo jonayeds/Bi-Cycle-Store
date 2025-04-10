@@ -35,6 +35,9 @@ export const auth = (...requiredRoles: TUserRoles[]) => {
       if (!user) {
         throw new AppError(404, 'User not found');
       }
+      if(user.isBlocked){
+        throw new AppError(401, "You are currently blocked")
+      }
       req.user = user;
 
     } catch (err) {

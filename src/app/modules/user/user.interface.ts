@@ -12,7 +12,8 @@ export interface IUser {
     name:TName;
     email:string;
     password:string;
-    role:"customer" | 'admin'
+    role:"customer" | 'admin';
+    isBlocked:boolean
 }
 
 export interface IFetchedUser extends IUser {
@@ -23,6 +24,7 @@ export type TUserRoles = keyof typeof user_role
 
 export interface IUserModel extends Model<IUser>{
     isUserExistsByEmail(email: string): Promise<IUser & {_id:string}>;
+    isUserExists(id: string): Promise<IUser & {_id:string}>;
     isPasswordMatched(
         plainTextPassword: string,
         hashedPassword: string,
