@@ -83,6 +83,7 @@ const createPayment =async(order:IOrder, user:JwtPayload)=>{
 
 }
 
+
 const verifyPayment = async(sessionId:string)=>{
     const session = await verifyPaymentUtility(sessionId)
     if(session.payment_status === "paid"){
@@ -90,6 +91,11 @@ const verifyPayment = async(sessionId:string)=>{
     }else{
       throw new AppError(402, "Payment is not successfull")
     }
+}
+
+const getAllOrders = async()=>{
+  const result  = await Order.find().populate("product customer")
+  return result
 }
 
 
@@ -118,5 +124,6 @@ export const orderServices = {
   orderABiCycle,
   calculateRevenue,
   createPayment,
-  verifyPayment
+  verifyPayment,
+  getAllOrders
 };

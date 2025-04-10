@@ -28,7 +28,7 @@ const toggleBlockUser = catchAsync(async(req , res)=>{
     sendResponse(res,{  
         success:true,
         statusCode:200,
-        message:"Successfully fetched All User",
+        message:"Successfully blocked/unblocked User",
         data:result
     })
 })
