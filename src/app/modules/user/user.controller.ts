@@ -1,3 +1,4 @@
+import { ICustomRequest } from "../../interfaces";
 import { catchAsync } from "../../utils/catchAsync";
 import { sendResponse } from "../../utils/sendResponse";
 import { UserServices } from "./user.service";
@@ -33,8 +34,18 @@ const toggleBlockUser = catchAsync(async(req , res)=>{
     })
 })
 
+const getMe = catchAsync(async(req:ICustomRequest,res)=>{
+    sendResponse(res,{  
+        success:true,
+        statusCode:200,
+        message:"Successfully blocked/unblocked User",
+        data:req.user
+    })
+})
+
 export const UserControllers = {
     registerUser,
     getAllUsers,
-    toggleBlockUser
+    toggleBlockUser,
+    getMe
 }

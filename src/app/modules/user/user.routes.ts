@@ -11,5 +11,7 @@ const router = express.Router()
 router.post("/register-user",requestValidator(UserValidations.createUserValidationSchema), UserControllers.registerUser)
 router.get("/", auth(user_role.admin),UserControllers.getAllUsers )
 router.patch("/:userId", auth(user_role.admin),UserControllers.toggleBlockUser )
+router.get("/get-me", auth(user_role.customer, user_role.admin), UserControllers.getMe)
+
 
 export const UserRoutes = router

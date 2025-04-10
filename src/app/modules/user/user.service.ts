@@ -1,3 +1,4 @@
+
 import { AppError } from "../../errors/appError"
 import { IUser } from "./user.interface"
 import { User } from "./user.model"
@@ -24,6 +25,7 @@ const togleBlockUser = async(userId:string)=>{
     const result = await User.findByIdAndUpdate(userId, {isBlocked:!isUserExists.isBlocked})
     return result
 }
+
 
 
 export const UserServices = {
