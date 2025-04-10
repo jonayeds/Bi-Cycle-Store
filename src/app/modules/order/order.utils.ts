@@ -1,6 +1,4 @@
 
-
-
 import Stripe from "stripe"
 import config from "../../config"
 

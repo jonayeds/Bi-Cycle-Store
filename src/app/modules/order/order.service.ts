@@ -8,6 +8,30 @@ import { AppError } from '../../errors/appError';
 // order a Bi-Cycle
 const orderABiCycle = async (order: IOrder, user:JwtPayload) => {
   const product = await Product.findOne({ _id: order.product });
+  if(!product){
+    throw new AppError(404,"Product not found")
+  }
+  if(order.paymentSession === "pending"){
+    const newOrder = {
+      totalPrice : order.quantity * product.price,
+      customer : user._id,
+      quantity : order.quantity,
+      product: order.product,
+      paymentSession:order.paymentSession
+    }
+    const result = await Order.create(newOrder);
+    await Product.findByIdAndUpdate(
+      order.product,
+      {
+        $inc: { quantity: result.quantity * -1 },
+      },
+      { new: true },
+    );
+    if (product.quantity - newOrder.quantity === 0) {
+      await Product.findByIdAndUpdate(order.product, { inStock: false }, {new:true});
+    }
+    return result
+  }
   const session = await verifyPaymentUtility(order.paymentSession)
   const isOrderExist = await Order.findOne({paymentSession:order.paymentSession})
   if(isOrderExist){

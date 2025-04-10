@@ -10,7 +10,13 @@ const registerUser = async (payload:IUser)=>{
     return result
 }
 
+const getAllusers = async()=>{
+    const result = await User.find()
+    return result 
+}
+
 
 export const UserServices = {
-    registerUser
+    registerUser,
+    getAllusers
 }
