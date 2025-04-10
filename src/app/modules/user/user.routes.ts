@@ -10,5 +10,6 @@ const router = express.Router()
 
 router.post("/register-user",requestValidator(UserValidations.createUserValidationSchema), UserControllers.registerUser)
 router.get("/", auth(user_role.admin),UserControllers.getAllUsers )
+router.patch("/:userId", auth(user_role.admin),UserControllers.toggleBlockUser )
 
 export const UserRoutes = router

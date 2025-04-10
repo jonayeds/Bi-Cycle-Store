@@ -23,8 +23,18 @@ const getAllUsers = catchAsync(async(req , res)=>{
     })
 
 })
+const toggleBlockUser = catchAsync(async(req , res)=>{
+    const result  = await UserServices.togleBlockUser(req.params.userId)
+    sendResponse(res,{  
+        success:true,
+        statusCode:200,
+        message:"Successfully fetched All User",
+        data:result
+    })
+})
 
 export const UserControllers = {
     registerUser,
-    getAllUsers
+    getAllUsers,
+    toggleBlockUser
 }
