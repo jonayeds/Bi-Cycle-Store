@@ -70,6 +70,11 @@ userSchema.post('save', function (doc, next) {
     return await User.findById(id).select('+password');
   };
   
+  userSchema.statics.hashPassword = async function (password: string) {
+    const pass = await bcrypt.hash(password, Number(config.salt_rounds));
+    return pass
+  };
+  
   userSchema.statics.isPasswordMatched = async function (
     plainTextPassword,
     hashedPassword,

@@ -1,3 +1,4 @@
+import { JwtPayload } from "jsonwebtoken";
 import { ICustomRequest } from "../../interfaces";
 import { catchAsync } from "../../utils/catchAsync";
 import { sendResponse } from "../../utils/sendResponse";
@@ -38,8 +39,17 @@ const getMe = catchAsync(async(req:ICustomRequest,res)=>{
     sendResponse(res,{  
         success:true,
         statusCode:200,
-        message:"Successfully blocked/unblocked User",
+        message:"Successfully fetched User",
         data:req.user
+    })
+})
+const updatePassword = catchAsync(async(req:ICustomRequest,res)=>{
+    const result = await UserServices.updatePassword(req.body, req.user as JwtPayload)
+    sendResponse(res,{  
+        success:true,
+        statusCode:200,
+        message:"Successfully updated User",
+        data:result
     })
 })
 
@@ -47,5 +57,6 @@ export const UserControllers = {
     registerUser,
     getAllUsers,
     toggleBlockUser,
-    getMe
+    getMe,
+    updatePassword
 }

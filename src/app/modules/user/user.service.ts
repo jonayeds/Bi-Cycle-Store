@@ -1,4 +1,5 @@
 
+import { JwtPayload } from "jsonwebtoken"
 import { AppError } from "../../errors/appError"
 import { IUser } from "./user.interface"
 import { User } from "./user.model"
@@ -26,10 +27,20 @@ const togleBlockUser = async(userId:string)=>{
     return result
 }
 
+const updatePassword = async(payload:{oldPassword:string, newPassword:string}, user:JwtPayload)=>{
+    const isPasswordMatched = await User.isPasswordMatched(payload.oldPassword, user.password)
+    if(!isPasswordMatched){
+        throw new AppError(404,'Password not Matched')
+    }
+    const newHashedPass = await User.hashPassword(payload.newPassword)
+    const result = await User.findByIdAndUpdate(user._id, {password:newHashedPass}, {new:true})
+    return result
+}
 
 
 export const UserServices = {
     registerUser,
     getAllusers,
-    togleBlockUser
+    togleBlockUser,
+    updatePassword
 }

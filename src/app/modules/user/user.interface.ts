@@ -25,6 +25,7 @@ export type TUserRoles = keyof typeof user_role
 export interface IUserModel extends Model<IUser>{
     isUserExistsByEmail(email: string): Promise<IUser & {_id:string}>;
     isUserExists(id: string): Promise<IUser & {_id:string}>;
+    hashPassword(password:string): Promise<string>;
     isPasswordMatched(
         plainTextPassword: string,
         hashedPassword: string,
