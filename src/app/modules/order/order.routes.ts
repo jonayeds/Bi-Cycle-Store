@@ -13,6 +13,8 @@ orderRouter.post("/create-payment", auth(user_role.customer), requestValidator(O
 orderRouter.post("/verify-payment/:paymentId", auth(user_role.customer),orderControllers.verifyPayment)
 orderRouter.get("/revenue", orderControllers.calculateRevenue)
 orderRouter.get("/my-orders",auth(user_role.customer), orderControllers.getMyOrders)
+orderRouter.delete("/:orderId",auth(user_role.customer), orderControllers.deleteOrder)
 orderRouter.get("/", auth(user_role.admin),orderControllers.getAllOrder)
+
 
 export const OrderRoutes = orderRouter

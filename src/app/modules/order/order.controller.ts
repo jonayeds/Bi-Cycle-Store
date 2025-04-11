@@ -122,6 +122,28 @@ const getAllOrder = async(req:ICustomRequest, res:Response)=>{
 
 }
 
+const deleteOrder = async(req:ICustomRequest, res:Response)=>{
+    try{
+        const result = await orderServices.deleteOrder(req.user as JwtPayload, req.params.orderId)
+        res
+        .status(200)
+        .json({
+            success:true,
+            message:"Orders Fetched successfully",
+            data:result
+        })
+    }catch(error){
+        res
+        .status(400)
+        .json({
+            success:false,
+            message:"Something went wrong while verifying payment",
+            error
+        })
+    }
+
+}
+
 const getMyOrders = async(req:ICustomRequest, res:Response)=>{
     try{
         const result = await orderServices.getMyOrders(req.user as JwtPayload)
@@ -150,5 +172,6 @@ export const orderControllers= {
     createPayment,
     verifyPayment,
     getAllOrder,
-    getMyOrders
+    getMyOrders,
+    deleteOrder
 }

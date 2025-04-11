@@ -102,6 +102,20 @@ const getMyOrders = async(user:JwtPayload)=>{
   const result  = await Order.find({customer:user._id}).populate("product")
   return result
 }
+const deleteOrder = async(user:JwtPayload, orderId:string)=>{
+  const isOrderExists = await Order.findById(orderId)
+  if(!isOrderExists){
+    throw new AppError(400, "Order not found")
+  }
+  if(isOrderExists._id.toString() !== orderId){
+    throw new AppError(400, "You are not authorized to deleted this order")
+  }
+  if(isOrderExists.paymentSession !== "pending"){
+    throw new AppError(400, "Order is already confirmed")
+  }
+  const result  = await Order.findByIdAndDelete(orderId)
+  return result
+}
 
 
 
@@ -131,5 +145,6 @@ export const orderServices = {
   createPayment,
   verifyPayment,
   getAllOrders,
-  getMyOrders
+  getMyOrders,
+  deleteOrder
 };
