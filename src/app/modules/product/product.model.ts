@@ -27,6 +27,9 @@ const productSchema = new Schema<IProduct>({
     inStock:{
         type:Boolean,
         required:true
+    },
+    image:{
+        type:String,
     }
 
 },{timestamps:true})

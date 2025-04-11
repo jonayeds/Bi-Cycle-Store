@@ -14,6 +14,7 @@ export const productValidationSchema = z.object({
   type: z.enum(['Mountain', 'Road', 'Hybrid', 'BMX', 'Electric'], {
     message: 'Type is not valid for a Bi-Cycle',
   }),
+  image:z.string().optional()
 });
 
 // validation of the data that is used to update Bi-Cycle

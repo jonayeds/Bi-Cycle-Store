@@ -122,10 +122,33 @@ const getAllOrder = async(req:ICustomRequest, res:Response)=>{
 
 }
 
+const getMyOrders = async(req:ICustomRequest, res:Response)=>{
+    try{
+        const result = await orderServices.getMyOrders(req.user as JwtPayload)
+        res
+        .status(200)
+        .json({
+            success:true,
+            message:"Orders Fetched successfully",
+            data:result
+        })
+    }catch(error){
+        res
+        .status(400)
+        .json({
+            success:false,
+            message:"Something went wrong while fetching My Orders",
+            error
+        })
+    }
+
+}
+
 export const orderControllers= {
     orderBiCycle,
     calculateRevenue,
     createPayment,
     verifyPayment,
-    getAllOrder
+    getAllOrder,
+    getMyOrders
 }

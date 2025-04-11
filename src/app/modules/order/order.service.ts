@@ -98,6 +98,11 @@ const getAllOrders = async()=>{
   return result
 }
 
+const getMyOrders = async(user:JwtPayload)=>{
+  const result  = await Order.find({customer:user._id}).populate("product")
+  return result
+}
+
 
 
 
@@ -125,5 +130,6 @@ export const orderServices = {
   calculateRevenue,
   createPayment,
   verifyPayment,
-  getAllOrders
+  getAllOrders,
+  getMyOrders
 };

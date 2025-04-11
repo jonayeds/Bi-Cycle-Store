@@ -30,7 +30,7 @@ const togleBlockUser = async(userId:string)=>{
 const updatePassword = async(payload:{oldPassword:string, newPassword:string}, user:JwtPayload)=>{
     const isPasswordMatched = await User.isPasswordMatched(payload.oldPassword, user.password)
     if(!isPasswordMatched){
-        throw new AppError(404,'Password not Matched')
+        throw new AppError(400,'Password not Matched')
     }
     const newHashedPass = await User.hashPassword(payload.newPassword)
     const result = await User.findByIdAndUpdate(user._id, {password:newHashedPass}, {new:true})
