@@ -1,6 +1,5 @@
 # By-Cycle Store
 ## A backend project for a by-cycle store
---> <a href="https://bi-cycle-store-tau.vercel.app/">Live Server Link</a>
 
 --> <a href="https://drive.google.com/file/d/1-JPs6Af10-Ahwrc0WFJQ0kDWpxBK88J3/view?usp=drive_link">Video Explanation</a>
 
@@ -13,6 +12,9 @@
 - Delete a By-Cyle
 - Order a By-Cycle
 - Get total revenues
+- Integrated Stripe Payment Method
+- Cancel order
+- BLock Customer
 
 ## Technologies used
 <p align="left">  
